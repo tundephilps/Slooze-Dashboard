@@ -14,7 +14,15 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    // TEMP ROLE ASSIGNMENT: if email contains 'manager' => manager, else storekeeper
+    const role =
+      email && email.toLowerCase().includes("manager")
+        ? "manager"
+        : "storekeeper";
+    localStorage.setItem("role", role);
+    console.log("Form submitted - role set to", role);
+    // redirect to dashboard
+    window.location.href = "/Dashboard";
   };
 
   return (
@@ -114,14 +122,13 @@ const Login = () => {
             </div>
 
             {/* Submit Button */}
-            <Link to="/Dashboard">
-              <button
-                type="submit"
-                className="w-full bg-[#8044fe] text-white py-2 rounded-2xl mt-4 hover:bg-purple-700 transition"
-              >
-                Get Started
-              </button>
-            </Link>
+
+            <button
+              type="submit"
+              className="w-full bg-[#8044fe] text-white py-2 rounded-2xl mt-4 hover:bg-purple-700 transition"
+            >
+              Get Started
+            </button>
           </form>
 
           {/* Divider */}

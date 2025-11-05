@@ -17,7 +17,11 @@ import SubscriptionsPerformersCard from "../components/Dashboard/SubPerformance"
 import TopSalesProductCard from "../components/Dashboard/TopSales";
 import PaymentHistoryCard from "../components/Dashboard/PaymentHistory";
 
+import { Navigate } from "react-router-dom";
+
 const Dashboard = () => {
+  const role = typeof window !== 'undefined' ? localStorage.getItem('role') : null;
+  if(role !== 'manager') return <Navigate to="/Product" replace />;
   const { theme } = useTheme(); // ✅ Get current theme
 
   // Dynamic dashboard background

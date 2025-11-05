@@ -13,7 +13,6 @@ import {
 import { useTheme } from "../../context/ThemeContext"; // Import theme context
 
 export default function Sidebar() {
-  const role = typeof window !== 'undefined' ? localStorage.getItem('role') : null;
   const [openMenus, setOpenMenus] = useState({
     home: false,
     dashboard: false,
@@ -97,11 +96,6 @@ export default function Sidebar() {
     },
   ];
 
-  const visibleMenu = menuItems.filter(item => {
-    if(item.label === 'Dashboard' && role !== 'manager') return false;
-    return true;
-  });
-
   return (
     <div
       className={`w-64 h-screen overflow-y-auto 
@@ -135,7 +129,7 @@ export default function Sidebar() {
 
       {/* Navigation Menu */}
       <nav className="py-4">
-        {visibleMenu.map((item) => (
+        {menuItems.map((item) => (
           <div key={item.id}>
             {/* Main Menu Item */}
             <button
