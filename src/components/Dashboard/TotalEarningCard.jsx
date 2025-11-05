@@ -8,6 +8,7 @@ import {
   YAxis,
 } from "recharts";
 import { FaArrowUp } from "react-icons/fa";
+import { useTheme } from "../../context/ThemeContext"; // ✅ Import theme context
 
 const data = [
   { date: "Nov 20", current: 40, previous: 35 },
@@ -20,49 +21,84 @@ const data = [
 ];
 
 const TotalEarningCard = () => {
+  const { theme } = useTheme(); // ✅ Access current theme
+
   return (
-    <div className="w-full  bg-white p-6 rounded-2xl shadow-sm">
+    <div
+      className={`w-full p-6 rounded-2xl shadow-sm transition-colors duration-300 ${
+        theme === "light" ? "bg-white" : "bg-[#1a1a1a]"
+      }`}
+    >
+      {/* Header Text */}
       <div className="flex flex-col gap-1">
-        <h3 className="text-gray-500 text-sm font-medium">Total Earning</h3>
-        <h1 className="text-3xl font-bold text-gray-900">+112,893</h1>
+        <h3
+          className={`text-sm font-medium transition-colors ${
+            theme === "light" ? "text-gray-500" : "text-gray-400"
+          }`}
+        >
+          Total Earning
+        </h3>
+        <h1
+          className={`text-3xl font-bold transition-colors ${
+            theme === "light" ? "text-gray-900" : "text-gray-100"
+          }`}
+        >
+          +112,893
+        </h1>
         <div className="flex items-center gap-1">
           <FaArrowUp className="text-green-500 text-xs" />
           <span className="text-green-500 text-sm font-semibold">70.5%</span>
-          <span className="text-gray-400 text-sm">trend title</span>
+          <span
+            className={`text-sm transition-colors ${
+              theme === "light" ? "text-gray-400" : "text-gray-500"
+            }`}
+          >
+            trend title
+          </span>
         </div>
       </div>
 
+      {/* Line Chart */}
       <div className="mt-4 h-32">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <Tooltip
               cursor={false}
               contentStyle={{
-                background: "white",
+                background: theme === "light" ? "#fff" : "#000",
                 border: "none",
                 borderRadius: "8px",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                boxShadow:
+                  theme === "light"
+                    ? "0 2px 8px rgba(0,0,0,0.1)"
+                    : "0 2px 8px rgba(255,255,255,0.1)",
+                color: theme === "light" ? "#333" : "#f9f9f9",
               }}
-              labelStyle={{ color: "#666" }}
+              labelStyle={{
+                color: theme === "light" ? "#666" : "#ccc",
+              }}
             />
             <XAxis
               dataKey="date"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "#999", fontSize: 12 }}
+              tick={{
+                fill: theme === "light" ? "#999" : "#aaa",
+                fontSize: 12,
+              }}
             />
             <YAxis hide />
             <Line
               type="monotone"
               dataKey="previous"
-              stroke="#BDBDBD"
+              stroke={theme === "light" ? "#BDBDBD" : "#555"}
               strokeWidth={2}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="current"
-              stroke="#4CAF50"
+              stroke={theme === "light" ? "#4CAF50" : "#dec224"}
               strokeWidth={2}
               dot={false}
             />

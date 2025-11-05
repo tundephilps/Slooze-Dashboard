@@ -1,5 +1,6 @@
 import React from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useTheme } from "../../context/ThemeContext"; // ✅ Import theme context
 
 const payments = [
   { id: 1, status: "Success", email: "Youremail@email.com", amount: "$100" },
@@ -12,18 +13,52 @@ const payments = [
 ];
 
 const PaymentHistoryCard = () => {
+  const { theme } = useTheme(); // ✅ Access current theme
+
   return (
-    <div className="w-full bg-white p-6 rounded-2xl shadow-sm">
+    <div
+      className={`w-full p-6 rounded-2xl text-[10px] shadow-sm transition-colors duration-300 ${
+        theme === "light" ? "bg-white" : "bg-[#1a1a1a]"
+      }`}
+    >
       {/* Header */}
       <div className="mb-4">
-        <h3 className="text-gray-800 font-semibold text-lg">Payment History</h3>
-        <p className="text-gray-400 text-sm">Manage your payments.</p>
+        <h3
+          className={`text-lg font-semibold transition-colors ${
+            theme === "light" ? "text-gray-800" : "text-white"
+          }`}
+        >
+          Payment History
+        </h3>
+        <p
+          className={`text-sm transition-colors ${
+            theme === "light" ? "text-gray-400" : "text-gray-500"
+          }`}
+        >
+          Manage your payments.
+        </p>
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden border border-gray-200 rounded-xl">
-        <table className="w-full text-left border-collapse">
-          <thead className="bg-gray-50 text-gray-500 text-sm font-medium">
+      <div
+        className={`overflow-hidden border  rounded-xl transition-colors ${
+          theme === "light"
+            ? "bg-white border-gray-200"
+            : "bg-none border-gray-700"
+        }`}
+      >
+        <table
+          className={`w-full text-left border-collapse transition-colors ${
+            theme === "light" ? "text-gray-800" : "text-white"
+          }`}
+        >
+          <thead
+            className={`${
+              theme === "light"
+                ? "bg-gray-50 text-gray-500"
+                : "bg-none text-gray-400"
+            } text-[10px] font-medium`}
+          >
             <tr>
               <th className="py-2 px-4">Status</th>
               <th className="py-2 px-4">Email</th>
@@ -34,7 +69,9 @@ const PaymentHistoryCard = () => {
             {payments.map((item) => (
               <tr
                 key={item.id}
-                className="border-t border-gray-100 hover:bg-gray-50 transition"
+                className={`border-t border-gray-100 text-[10px]  hover:bg-gray-50 transition ${
+                  theme === "light" ? "hover:bg-gray-50" : "hover:bg-[#444]"
+                }`}
               >
                 <td className="py-4 px-4 flex items-center gap-2">
                   <input
@@ -43,14 +80,26 @@ const PaymentHistoryCard = () => {
                     readOnly
                     className="accent-green-500 w-4 h-4 cursor-pointer"
                   />
-                  <span className="text-green-600 text-sm font-medium">
+                  <span
+                    className={`font-medium text-[10px] transition-colors ${
+                      theme === "light" ? "text-green-600" : "text-green-400"
+                    }`}
+                  >
                     {item.status}
                   </span>
                 </td>
-                <td className="py-3 px-4 text-gray-800 text-sm">
+                <td
+                  className={`py-3 px-4 text-[10px] transition-colors ${
+                    theme === "light" ? "text-gray-800" : "text-white"
+                  }`}
+                >
                   {item.email}
                 </td>
-                <td className="py-3 px-4 text-right text-gray-800 font-semibold">
+                <td
+                  className={`py-3 px-4 text-right font-semibold transition-colors ${
+                    theme === "light" ? "text-gray-800" : "text-white"
+                  }`}
+                >
                   {item.amount}
                 </td>
               </tr>
@@ -61,10 +110,22 @@ const PaymentHistoryCard = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 mt-3">
-        <button className="flex items-center gap-1 bg-gray-200 text-gray-800 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-gray-300 transition">
+        <button
+          className={`flex items-center gap-1 px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+            theme === "light"
+              ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              : "bg-[#333] text-white hover:bg-[#444]"
+          }`}
+        >
           <FaChevronLeft className="text-xs" /> Previous
         </button>
-        <button className="flex items-center gap-1 bg-green-500 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-green-600 transition">
+        <button
+          className={`flex items-center gap-1 px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+            theme === "light"
+              ? "bg-green-500 text-white hover:bg-green-600"
+              : "bg-green-600 text-white hover:bg-green-700"
+          }`}
+        >
           Next <FaChevronRight className="text-xs" />
         </button>
       </div>
