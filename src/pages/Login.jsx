@@ -37,7 +37,7 @@ const Login = () => {
           theme === "light" ? "bg-white" : "bg-[#111]"
         }`}
       >
-        <div className="w-full lg:px-64 px-8">
+        <div className="w-full lg:px-52 px-8">
           <h2
             className={`text-3xl font-bold text-center mb-3 ${
               theme === "light" ? "text-gray-900" : "text-white"
